@@ -1,14 +1,12 @@
 {
   "name": "Izzi Vibes 444",
-  "short_name": "Izzi Vibes",
-  "description": "Baralho de afirmações positivas para garotas que escolhem a si mesmas",
-  "start_url": "./index.html",
+  "short_name": "Izzi 444",
+  "description": "Vibrações que chegam na hora certa ✦",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#f5f0fb",
-  "theme_color": "#7c5fa0",
+  "background_color": "#0d0a1a",
+  "theme_color": "#7c3aed",
   "orientation": "portrait",
-  "lang": "pt-BR",
-  "categories": ["lifestyle", "health", "wellness"],
   "icons": [
     {
       "src": "icon-192.png",
@@ -21,15 +19,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [],
-  "shortcuts": [
-    {
-      "name": "Baralho 444",
-      "short_name": "Baralho",
-      "url": "./index.html#baralho",
-      "description": "Abrir o baralho de afirmações"
     }
   ]
 }
