@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#7c5fa0" />
+  <title>Izzi Vibes 444</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* =============================================
+       IZZI VIBES 444 — PROTEÇÃO POR SENHA
+       
+       COMO USAR:
+       1. Renomeie o index.html atual para "app.html"
+       2. Coloque este arquivo como "index.html"
+       3. Altere a variável SENHA_CORRETA abaixo
+       4. Faça commit no GitHub
+       
+       A senha padrão é: vibes444
+       TROQUE antes de publicar!
+    ============================================= */
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #26215C;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Fundo decorativo */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: #534AB7;
+      opacity: 0.15;
+      top: -200px;
+      right: -200px;
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: #3C3489;
+      opacity: 0.2;
+      bottom: -150px;
+      left: -100px;
+      pointer-events: none;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(10px);
+    }
+
+    .ornament {
+      font-size: 10px;
+      letter-spacing: 8px;
+      color: #7F77DD;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      color: #EEEDFE;
+      line-height: 1.1;
+      margin-bottom: 0.3rem;
+    }
+    .logo span { color: #d4a843; }
+
+    .subtitle {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7F77DD;
+      margin-bottom: 2.5rem;
+    }
+
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 300;
+      color: #CECBF6;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .input-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 0.5px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 14px 52px 14px 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #EEEDFE;
+      outline: none;
+      transition: border-color 0.2s;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    .input-wrap input::placeholder {
+      color: #534AB7;
+      letter-spacing: 1px;
+    }
+    .input-wrap input:focus {
+      border-color: rgba(127,119,221,0.6);
+    }
+
+    /* Botão mostrar/ocultar senha */
+    .toggle-pass {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #534AB7;
+      font-size: 18px;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .toggle-pass:hover { color: #AFA9EC; }
+
+    .btn {
+      width: 100%;
+      background: #d4a843;
+      color: #26215C;
+      border: none;
+      border-radius: 50px;
+      padding: 15px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-bottom: 1.5rem;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active { transform: scale(0.98); }
+
+    .error {
+      font-size: 13px;
+      color: #ED93B1;
+      margin-bottom: 1rem;
+      min-height: 20px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .error.visible { opacity: 1; }
+
+    .hint {
+      font-size: 12px;
+      color: #534AB7;
+      line-height: 1.6;
+    }
+    .hint a {
+      color: #7F77DD;
+      text-decoration: none;
+    }
+    .hint a:hover { text-decoration: underline; }
+
+    /* Animação de entrada */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card { animation: fadeUp 0.5s ease forwards; }
+
+    /* Estado de carregamento */
+    .btn.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .btn.loading::after {
+      content: ' ✦';
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0%   { opacity: 1; }
+      50%  { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="ornament">✦ ✦ ✦</span>
+
+    <h1 class="logo">Izzi <span>Vibes</span></h1>
+    <p class="subtitle">Studio Criativo · 444</p>
+
+    <p class="tagline">
+      Para garotas que escolhem<br>a si mesmas ✦
+    </p>
+
+    <div class="input-wrap">
+      <input
+        type="password"
+        id="senha"
+        placeholder="Digite sua senha de acesso"
+        autocomplete="current-password"
+        onkeydown="if(event.key==='Enter') entrar()"
+      />
+      <button class="toggle-pass" onclick="toggleSenha()" title="Mostrar/ocultar senha">👁</button>
+    </div>
+
+    <p class="error" id="erro">Senha incorreta. Tente novamente.</p>
+
+    <button class="btn" id="btnEntrar" onclick="entrar()">
+      Entrar na Izzi Vibes
+    </button>
+
+    <p class="hint">
+      Não tem acesso ainda?<br>
+      <!-- SUBSTITUA o link abaixo pelo link da sua Kiwify -->
+      <a href="[LINK_KIWIFY_AQUI]" target="_blank">Clique aqui para adquirir o acesso ✦</a>
+    </p>
+  </div>
+
+  <script>
+    // =============================================
+    // CONFIGURAÇÃO — EDITE AQUI
+    // =============================================
+
+    // TROQUE a senha antes de publicar!
+    // Use algo difícil de adivinhar mas fácil de lembrar para suas clientes.
+    // Exemplo: "vibes444", "izzi2024", "escolhoa444"
+    const SENHA_CORRETA = "vibes444";
+
+    // Nome da página protegida (deve ser o nome do seu arquivo principal)
+    // Se o seu app está em "app.html", deixe "app.html"
+    const PAGINA_PROTEGIDA = "app.html";
+
+    // Tempo que o acesso fica salvo (em horas). Após esse tempo, pede a senha de novo.
+    // 720 = 30 dias. Altere conforme preferir.
+    const HORAS_ACESSO = 720;
+
+    // =============================================
+    // LÓGICA (não precisa mexer abaixo)
+    // =============================================
+
+    // Verifica se já está autenticada ao carregar
+    (function checarAcesso() {
+      const salvo = localStorage.getItem("izzi_acesso");
+      if (salvo) {
+        try {
+          const { expira } = JSON.parse(salvo);
+          if (Date.now() < expira) {
+            window.location.replace(PAGINA_PROTEGIDA);
+          } else {
+            localStorage.removeItem("izzi_acesso");
+          }
+        } catch(e) {
+          localStorage.removeItem("izzi_acesso");
+        }
+      }
+    })();
+
+    function entrar() {
+      const campo = document.getElementById("senha");
+      const erro  = document.getElementById("erro");
+      const btn   = document.getElementById("btnEntrar");
+      const digitada = campo.value.trim();
+
+      if (!digitada) {
+        campo.focus();
+        return;
+      }
+
+      btn.classList.add("loading");
+      erro.classList.remove("visible");
+
+      // Pequeno delay para parecer que está verificando
+      setTimeout(() => {
+        if (digitada === SENHA_CORRETA) {
+          const expira = Date.now() + (HORAS_ACESSO * 60 * 60 * 1000);
+          localStorage.setItem("izzi_acesso", JSON.stringify({ expira }));
+          window.location.replace(PAGINA_PROTEGIDA);
+        } else {
+          btn.classList.remove("loading");
+          erro.classList.add("visible");
+          campo.value = "";
+          campo.focus();
+          // Vibração sutil em mobile
+          if (navigator.vibrate) navigator.vibrate(100);
+        }
+      }, 600);
+    }
+
+    function toggleSenha() {
+      const campo = document.getElementById("senha");
+      campo.type = campo.type === "password" ? "text" : "password";
+    }
+
+    // Foca o campo ao carregar
+    window.addEventListener("load", () => {
+      document.getElementById("senha").focus();
+    });
+  </script>
+</body>
+</html>
